@@ -7,7 +7,6 @@ import githubLogo from '../assets/github.png';
 import linkedinLogo from '../assets/linkedin.png';
 import {useState} from 'react';
 import { useCallback } from "react";
-import { Analytics } from '@vercel/analytics/react';
 
 
 
@@ -104,15 +103,15 @@ const Home = () => {
   return (
     <div className="root">
       <Head>
-        <title>Dream Interpreter</title>
+        <title>Better than Siri</title>
       </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>dreams. what do they mean?</h1>
+            <h1>Your better AI Assistant</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Tell me about a very specific dream that you had. The more specific, the better. I'll tell you what it means.</h2>
+            <h2>Test me out. I'm better than siri</h2>
           </div>
         </div>
       </div>
@@ -188,7 +187,6 @@ const Home = () => {
           <Image src={githubLogo} width = {17} height = {17}/>
         </a>
       </div>
-      <Analytics />
     </div>
     
 
