@@ -6,12 +6,9 @@ import facebookLogo from '../assets/facebook.png';
 import githubLogo from '../assets/github.png';
 import linkedinLogo from '../assets/linkedin.png';
 import {useState} from 'react';
-import Particles from "react-tsparticles";
 import { useCallback } from "react";
-import { loadFull } from "tsparticles";
 import { Analytics } from '@vercel/analytics/react';
 
-import options from "./particles.json"
 
 
 
@@ -104,16 +101,6 @@ const Home = () => {
   function onUserChangedText(event){
       setUserInput(event.target.value)
   }
-  const particlesInit = useCallback(async engine => {
-    console.log(engine);
-    // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
-    await loadFull(engine);
-  }, []);
-  const particlesLoaded = useCallback(async container => {
-    await console.log(container);
-  }, []);
   return (
     <div className="root">
       <Head>
@@ -201,13 +188,6 @@ const Home = () => {
           <Image src={githubLogo} width = {17} height = {17}/>
         </a>
       </div>
-      
-      <Particles
-      id="tsparticles"
-      init={particlesInit}
-      loaded={particlesLoaded}
-        options={options}
-      />
       <Analytics />
     </div>
     
