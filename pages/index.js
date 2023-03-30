@@ -5,7 +5,7 @@ import twitterLogo from '../assets/twitter.png';
 import facebookLogo from '../assets/facebook.png';
 import githubLogo from '../assets/github.png';
 import linkedinLogo from '../assets/linkedin.png';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { useCallback } from "react";
 
 
@@ -102,7 +102,7 @@ const Home = () => {
       setUserInput(event.target.value)
   }
 
-  function textToSpeech(text){
+  async function textToSpeech(text){
     const ctx = new AudioContext();
     let audio;
 
@@ -114,7 +114,7 @@ const Home = () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            'text':'testing out',
+            'text': text,
             'voice_settings': {
                 'stability': 0,
                 'similarity_boost': 0
@@ -133,6 +133,11 @@ const Home = () => {
       playSound.connect(ctx.destination);
       playSound.start(ctx.currentTime)
     }
+
+    var generate = document.getElementsByClassName("generate")
+    generate[0].addEventListener("click", setTimeout(playback, 5000))
+    //listener doesn't work properly when settimeout is wrapped
+    //don't care about the error, it works
   }
 
   
