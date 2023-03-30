@@ -18,7 +18,7 @@ const Home = () => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   //Maximum number of clicks allowed
-  var maxClicks = 5;
+  var maxClicks = 1000;
 
   function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -94,12 +94,49 @@ const Home = () => {
     console.log("OpenAI replied...", output.text)
 
     setApiOutput(`${output.text}`);
+    textToSpeech(`${output.text}`)
     setIsGenerating(false);
   }
 
   function onUserChangedText(event){
       setUserInput(event.target.value)
   }
+
+  function textToSpeech(text){
+    const ctx = new AudioContext();
+    let audio;
+
+    fetch('https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM', {
+        method: 'POST',
+        headers: {
+            'accept': 'audio/mpeg',
+            'xi-api-key': 'bac04e5a06ef1df7fa735d3e8348e21b',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'text':'testing out',
+            'voice_settings': {
+                'stability': 0,
+                'similarity_boost': 0
+            }
+        })
+    })
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
+    .then(decodedAudio => {
+      audio = decodedAudio
+    })
+
+    function playback(){
+      const playSound = ctx.createBufferSource();
+      playSound.buffer = audio;
+      playSound.connect(ctx.destination);
+      playSound.start(ctx.currentTime)
+    }
+  }
+
+  
+
   return (
     <div className="root">
       <Head>
